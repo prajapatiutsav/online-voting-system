@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Success</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="container" style="text-align:center;">
+    <h2>✅ Vote Submitted Successfully!</h2>
+    <p>Your vote has been recorded.</p>
+
+    <a href="{% url 'home' %}">🏠 Go Home</a>
+</div>
+
+</body>
+</html>

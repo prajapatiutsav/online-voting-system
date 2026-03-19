@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Voting System</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+        .home-box {
+            text-align: center;
+        }
+
+        .home-box h1 {
+            margin-bottom: 15px;
+        }
+
+        .welcome {
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #444;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            margin: 12px 0;
+            padding: 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            color: white;
+            transition: 0.3s ease;
+        }
+
+        .login-btn { background: #007bff; }
+        .register-btn { background: #28a745; }
+        .vote-btn { background: #ffc107; color: black; }
+        .result-btn { background: #6f42c1; }
+        .logout-btn { background: #dc3545; }
+
+        .btn:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container home-box">
+
+    <h1>🗳️ Voting System</h1>
+
+    {% if user.is_authenticated %}
+
+        <p class="welcome">Welcome, <b>{{ user.username }}</b> 👋</p>
+
+        <a href="{% url 'vote' %}" class="btn vote-btn">🗳️ Vote Now</a>
+        <a href="{% url 'results' %}" class="btn result-btn">📊 View Results</a>
+        <a href="{% url 'logout' %}" class="btn logout-btn">🚪 Logout</a>
+
+    {% else %}
+
+        <a href="{% url 'login' %}" class="btn login-btn">🔐 Login</a>
+        <a href="{% url 'register' %}" class="btn register-btn">📝 Register</a>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

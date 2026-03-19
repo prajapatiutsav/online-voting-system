@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Results</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+        }
+
+        .dashboard {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            width: 800px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .content {
+            display: flex;
+            gap: 30px;
+        }
+
+        .left {
+            width: 40%;
+        }
+
+        .right {
+            width: 60%;
+        }
+
+        .candidate-card {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .winner {
+            margin-top: 20px;
+            padding: 12px;
+            background: #d4edda;
+            border-radius: 10px;
+            color: #155724;
+            font-weight: bold;
+        }
+
+        canvas {
+            max-height: 300px;
+        }
+
+        .back-btn {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            background: #007bff;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="dashboard">
+    <h2 class="title">📊 Election Results</h2>
+
+    <div class="content">
+
+        <!-- LEFT SIDE -->
+        <div class="left">
+            {% for candidate in candidates %}
+                <div class="candidate-card">
+                    <b>{{ candidate.name }}</b><br>
+                    Party: {{ candidate.party }} <br>
+                    Votes: {{ candidate.total_votes }} ({{ candidate.percentage }}%)
+                </div>
+            {% endfor %}
+
+            <div class="winner">
+                🏆 Winner: {{ winner.name }}
+            </div>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="right">
+            <canvas id="voteChart"></canvas>
+        </div>
+
+    </div>
+
+    <a href="{% url 'home' %}" class="back-btn">⬅ Back to Home</a>
+</div>
+
+<script>
+    const labels = [
+        {% for candidate in candidates %}
+            "{{ candidate.name }}",
+        {% endfor %}
+    ];
+
+    const data = [
+        {% for candidate in candidates %}
+            {{ candidate.total_votes }},
+        {% endfor %}
+    ];
+
+    const ctx = document.getElementById('voteChart').getContext('2d');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Votes',
+                data: data,
+                backgroundColor: ['#007bff', '#28a745', '#df6228', '#dc3545'],
+                borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { precision: 0 }
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

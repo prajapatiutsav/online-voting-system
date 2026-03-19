@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vote</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+<div class="container">
+    <h2>🗳️ Vote for Your Candidate</h2>
+
+    <!-- TIMER -->
+    {% if end_time %}
+        <p id="timer"></p>
+    {% endif %}
+
+    <form method="POST" onsubmit="return confirmVote()">
+        {% csrf_token %}
+
+        {% for candidate in candidates %}
+        <label class="candidate-option">
+            <input type="radio" name="candidate" value="{{ candidate.id }}" required>
+            <span>
+                <b>{{ candidate.name }}</b> ({{ candidate.party }})
+            </span>
+        </label>
+        {% empty %}
+            <p>No candidates available ❌</p>
+        {% endfor %}
+
+        <button type="submit" class="submit-btn">Submit Vote</button>
+    </form>
+</div>
+
+<!-- ✅ CONFIRMATION POPUP -->
+<script>
+function confirmVote() {
+    return confirm("Are you sure you want to submit your vote?");
+}
+</script>
+
+<!-- ⏳ COUNTDOWN TIMER -->
+<script>
+{% if end_time %}
+    const endTime = new Date("{{ end_time|date:'Y-m-d H:i:s' }}").getTime();
+
+    const timer = setInterval(function () {
+        const now = new Date().getTime();
+        const distance = endTime - now;
+
+        if (distance < 0) {
+            clearInterval(timer);
+            document.getElementById("timer").innerHTML = "⛔ Voting Closed";
+            return;
+        }
+
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("timer").innerHTML =
+            "⏳ Time left: " + hours + "h " + minutes + "m " + seconds + "s";
+    }, 1000);
+{% endif %}
+</script>
+
+</body>
+</html>

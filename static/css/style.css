@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #1e90ff, #007bff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    background: #fff;
+    padding: 25px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+form {
+    margin-top: 10px;
+}
+
+/* Candidate Card */
+.candidate-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 12px;
+    background: #f5f5f5;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: 0.3s ease;
+    text-align: left;
+}
+
+.candidate-option:hover {
+    background: #e0e0e0;
+}
+
+/* Radio Button */
+.candidate-option input[type="radio"] {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+/* Button */
+.submit-btn {
+    margin-top: 15px;
+    padding: 12px;
+    width: 100%;
+    border-radius: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    font-weight: bold;
+    font-size: 15px;
+    transition: 0.3s ease;
+}
+
+.submit-btn:hover {
+    background: #0056b3;
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+        border-radius: 15px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    .candidate-option {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .submit-btn {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
