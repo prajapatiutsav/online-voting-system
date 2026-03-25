@@ -1,9 +1,23 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Voting Closed</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
 
-<div class="container">
-    <h2>⛔ Voting Closed</h2>
-    <p>The voting period has ended.</p>
+<body>
 
-    <a href="{% url 'home' %}">Go Home</a>
+<div class="main-box">
+    <div class="card home-card">
+
+        <h1 style="color:#ff4b5c;">⛔ Voting Closed</h1>
+        <p class="welcome-text">The voting period has ended.</p>
+
+        <a href="{% url 'home' %}" class="home-btn result-btn">🏠 Go Home</a>
+
+    </div>
 </div>
+
+</body>
+</html>
