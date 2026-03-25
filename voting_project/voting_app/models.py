@@ -13,7 +13,7 @@ class Candidate(models.Model):
 
 
 # 🗳️ Vote Model (1 user = 1 vote)
-class Vote(models.Model):
+class Vote(models.Model): 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE)
 
