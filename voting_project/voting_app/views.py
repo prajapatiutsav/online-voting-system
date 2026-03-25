@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.db.models import Count
+
 from .models import Candidate, Vote, ElectionControl
 
 
@@ -59,15 +60,15 @@ def user_logout(request):
 def vote(request):
     control = ElectionControl.objects.first()
 
-    # ⛔ Voting closed check
+    # ⛔ Voting closed
     if control and control.end_time and timezone.now() > control.end_time:
         return render(request, 'voting_closed.html')
 
-    candidates = Candidate.objects.all()
-
-    # 🚫 Prevent double voting
+    # 🚫 Prevent double vote
     if Vote.objects.filter(user=request.user).exists():
         return render(request, 'already_voted.html')
+
+    candidates = Candidate.objects.all()
 
     if request.method == 'POST':
         candidate_id = request.POST.get('candidate')
@@ -76,7 +77,6 @@ def vote(request):
             return redirect('vote')
 
         candidate = Candidate.objects.get(id=candidate_id)
-
         Vote.objects.create(user=request.user, candidate=candidate)
 
         return redirect('success')
@@ -87,7 +87,7 @@ def vote(request):
     })
 
 
-# ✅ SUCCESS PAGE
+# ✅ SUCCESS
 def success(request):
     return render(request, 'success.html')
 
