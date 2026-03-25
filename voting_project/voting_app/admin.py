@@ -21,7 +21,7 @@ def is_results_allowed():
 
 
 # 🔒 Vote Admin Lock
-class VoteAdmin(admin.ModelAdmin):
+class VoteAdmin(admin.ModelAdmin): 
     def get_queryset(self, request):
         if not is_results_allowed():
             return Vote.objects.none()
