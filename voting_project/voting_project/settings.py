@@ -80,10 +80,14 @@ USE_I18N = True
 USE_TZ = True
 
 # STATIC FILES (🔥 IMPORTANT PART)
+import os
+
+STATIC_URL = '/static/'
+
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR.parent, 'static'),
+    BASE_DIR / "static"
 ]
 
 # DEFAULT PRIMARY KEY
