@@ -1,7 +1,23 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Already Voted</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
 
-<div class="container">
-    <h2>You have already voted!</h2>
-    <a href="/results/">View Results</a>
+<body>
+
+<div class="main-box">
+    <div class="card home-card">
+
+        <h1 style="color:#ffcc00;">⚠️ You have already voted!</h1>
+
+        <a href="{% url 'results' %}" class="home-btn result-btn">📊 View Results</a>
+        <a href="{% url 'home' %}" class="home-btn logout-btn">🏠 Back to Home</a>
+
+    </div>
 </div>
+
+</body>
+</html>
